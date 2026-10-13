@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Time Table | Government Degree Science College, Liaquatabad</title>
+<meta name="description" content="Class timetable for XI Pre-Engineering, Pre-Medical and Science General – Government Degree Science College, Liaquatabad.">
+<meta name="theme-color" content="#0f3d5e">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗓️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f6fa; --surface:#ffffff; --surface-2:#f7f9fc; --text:#14202e; --muted:#5d6b7c;
+  --line:#dde4ed; --brand:#0f3d5e; --brand-2:#1c6ea4; --accent:#f2b134; --shadow:0 1px 2px rgba(15,40,70,.06),0 6px 20px rgba(15,40,70,.07);
+  --radius:14px;
+  --physics:#2563eb; --chemistry:#059669; --maths:#d97706; --computer:#7c3aed; --english:#dc2626;
+  --urdu:#db2777;--pakistan-studies:#4f46e5;--practical:#64748b; --islamiat:#475569; --zoology:#0891b2; --botany:#65a30d;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#0c1520; --surface:#142231; --surface-2:#112030; --text:#e8eef5; --muted:#93a3b6;
+  --line:#243548; --brand:#0b2a42; --brand-2:#5aa9e0; --accent:#f2b134; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+  --physics:#60a5fa; --chemistry:#34d399; --maths:#fbbf24; --computer:#a78bfa; --english:#f87171;
+  --urdu:#f472b6;--pakistan-studies:#818cf8;--practical:#94a3b8; --islamiat:#94a3b8; --zoology:#22d3ee; --botany:#a3e635;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1520; --surface:#142231; --surface-2:#112030; --text:#e8eef5; --muted:#93a3b6;
+    --line:#243548; --brand:#0b2a42; --brand-2:#5aa9e0; --accent:#f2b134; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+    --physics:#60a5fa; --chemistry:#34d399; --maths:#fbbf24; --computer:#a78bfa; --english:#f87171;
+    --urdu:#f472b6;--pakistan-studies:#818cf8;--practical:#94a3b8; --islamiat:#94a3b8; --zoology:#22d3ee; --botany:#a3e635;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.45;min-height:100%;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  -webkit-font-smoothing:antialiased;
+}
+button,select{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+
+/* ---------- Header ---------- */
+header.hero{
+  background:linear-gradient(135deg,#0b2f4a 0%,#0f3d5e 45%,#1c6ea4 100%);
+  color:#fff;position:relative;overflow:hidden;
+  padding:calc(28px + env(safe-area-inset-top,0px)) 0 74px;
+}
+header.hero::before,header.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.06)}
+header.hero::before{width:380px;height:380px;right:-90px;top:-170px}
+header.hero::after{width:240px;height:240px;left:-80px;bottom:-140px}
+.hero-inner{position:relative;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;gap:16px;align-items:center}
+.crest{
+  width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.14);
+  display:grid;place-items:center;font-size:30px;border:1px solid rgba(255,255,255,.25);flex:none
+}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#bfe0f7}
+h1{font-size:clamp(1.2rem,2.6vw,1.85rem);font-weight:800;line-height:1.2;margin-top:2px}
+.subtitle{font-size:clamp(.88rem,1.6vw,1.02rem);color:#d7ebf9;margin-top:4px;font-weight:500}
+.hero-actions{display:flex;gap:10px}
+.icon-btn{
+  border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;
+  height:42px;padding:0 14px;border-radius:12px;cursor:pointer;font-weight:600;font-size:.88rem;
+  display:inline-flex;align-items:center;gap:8px;transition:.15s;
+}
+.icon-btn:hover{background:rgba(255,255,255,.22)}
+.icon-btn:focus-visible,.tab:focus-visible,.daytab:focus-visible,select:focus-visible,.tchr:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* ---------- Live card ---------- */
+.live{
+  margin-top:-48px;position:relative;z-index:2;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:16px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between;
+}
+.live-left{display:flex;gap:14px;align-items:center;min-width:0}
+.pulse{width:12px;height:12px;border-radius:50%;background:#16a34a;flex:none;box-shadow:0 0 0 0 rgba(22,163,74,.6);animation:pulse 1.8s infinite}
+.pulse.idle{background:#94a3b8;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.live-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--muted)}
+.live-main{font-weight:700;font-size:1.02rem}
+.live-sub{font-size:.88rem;color:var(--muted)}
+.live-right{text-align:right}
+.clock{font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--brand-2)}
+.today-date{font-size:.82rem;color:var(--muted);font-weight:600}
+
+/* ---------- Toolbar ---------- */
+.toolbar{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:22px 0 14px}
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px}
+.tab{border:0;background:transparent;padding:8px 18px;border-radius:9px;cursor:pointer;font-weight:700;font-size:.9rem;color:var(--muted);transition:.15s}
+.tab[aria-selected="true"]{background:var(--brand);color:#fff}
+:root[data-theme="dark"] .tab[aria-selected="true"]{background:var(--brand-2);color:#06121d}
+.filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 6px 0 12px;height:44px}
+.field label{font-size:.78rem;font-weight:700;color:var(--muted);white-space:nowrap}
+select{border:0;background:transparent;height:40px;font-weight:600;cursor:pointer;max-width:240px;color:var(--text)}
+select option{background:var(--surface);color:var(--text)}
+.ghost-btn{
+  height:44px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);
+  font-weight:700;font-size:.88rem;cursor:pointer;color:var(--text);display:inline-flex;align-items:center;gap:8px
+}
+.ghost-btn:hover{border-color:var(--brand-2)}
+
+.teacher-bar{
+  display:none;margin-bottom:14px;padding:12px 16px;border-radius:12px;
+  background:color-mix(in srgb,var(--accent) 18%,var(--surface));border:1px solid color-mix(in srgb,var(--accent) 55%,var(--line));
+  font-size:.92rem;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap
+}
+.teacher-bar.on{display:flex}
+.teacher-bar b{font-weight:800}
+.clear{border:0;background:var(--text);color:var(--surface);padding:6px 14px;border-radius:8px;font-weight:700;cursor:pointer;font-size:.82rem}
+
+/* ---------- Legend ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.chip i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+
+/* ---------- Subject colours ---------- */
+.s-physics{--c:var(--physics)}.s-chemistry{--c:var(--chemistry)}.s-maths{--c:var(--maths)}
+.s-computer{--c:var(--computer)}.s-english{--c:var(--english)}.s-urdu{--c:var(--urdu)}
+.s-islamiat{--c:var(--islamiat)}.s-pakistan-studies{--c:var(--pakistan-studies)}.s-practical{--c:var(--practical)}.s-zoology{--c:var(--zoology)}.s-botany{--c:var(--botany)}
+
+/* ---------- Option block (subject + teacher) ---------- */
+.opt{
+  --c:var(--muted);
+  background:color-mix(in srgb,var(--c) 11%,var(--surface));
+  border-left:4px solid var(--c);border-radius:9px;padding:8px 10px;transition:opacity .2s,transform .2s;
+}
+.opt+.opt{margin-top:6px}
+.opt .subj{font-weight:800;font-size:.95rem;display:flex;gap:6px;align-items:center;flex-wrap:wrap;color:var(--text)}
+.badge{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--c);color:#fff}
+:root[data-theme="dark"] .badge{color:#06121d}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badge{color:#06121d}}
+.tchr{
+  border:0;background:none;padding:0;cursor:pointer;text-align:left;
+  font-size:.8rem;font-weight:600;color:var(--muted);margin-top:2px;display:block;
+}
+.tchr:hover{color:var(--brand-2);text-decoration:underline}
+.opt.practical{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--c) 14%,var(--surface)) 0 10px,color-mix(in srgb,var(--c) 8%,var(--surface)) 10px 20px)}
+.has-filter .opt.dim{opacity:.28}
+.has-filter .opt.match{outline:2px solid var(--c);box-shadow:0 4px 14px color-mix(in srgb,var(--c) 30%,transparent)}
+.has-filter .cell.nomatch .opt{opacity:.22}
+
+/* ---------- Weekly table (desktop) ---------- */
+.table-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+.table-title{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--surface-2);border-bottom:1px solid var(--line);font-weight:800;font-size:.9rem}
+.table-title small{font-weight:600;color:var(--muted)}
+.scroll{overflow-x:auto}
+table.tt{width:100%;border-collapse:separate;border-spacing:0;min-width:900px;table-layout:fixed}
+table.tt th,table.tt td{padding:10px;vertical-align:top;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+table.tt tr:last-child td{border-bottom:0}
+table.tt th:last-child,table.tt td:last-child{border-right:0}
+table.tt thead th{background:var(--brand);color:#fff;text-align:center;padding:12px 8px;font-size:.82rem;border-color:rgba(255,255,255,.15)}
+:root[data-theme="dark"] table.tt thead th{background:#0b2a42}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) table.tt thead th{background:#0b2a42}}
+table.tt thead th .pn{display:block;font-weight:800;font-size:.9rem}
+table.tt thead th .pt{display:block;font-weight:500;opacity:.85;margin-top:2px;font-variant-numeric:tabular-nums}
+table.tt .daycol{width:112px;background:var(--surface-2);font-weight:800;text-align:center;vertical-align:middle;font-size:.95rem}
+table.tt thead .daycol{background:var(--brand);color:#fff}
+tr.today .daycol{background:var(--accent);color:#1b1300}
+tr.today .daycol small{display:block;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+td.cell.current{background:color-mix(in srgb,#16a34a 14%,var(--surface));box-shadow:inset 0 0 0 2px #16a34a}
+td.cell.span-note{background:var(--surface-2)}
+td.empty{background:repeating-linear-gradient(45deg,var(--surface-2) 0 8px,var(--surface) 8px 16px)}
+
+/* ---------- Day cards (mobile weekly + daily view) ---------- */
+.mobile-week{display:none}
+.daytabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+.daytab{
+  flex:1;min-width:92px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;
+  cursor:pointer;font-weight:800;text-align:center;transition:.15s
+}
+.daytab small{display:block;font-weight:600;color:var(--muted);font-size:.7rem}
+.daytab[aria-selected="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.daytab[aria-selected="true"] small{color:#c9e4f7}
+:root[data-theme="dark"] .daytab[aria-selected="true"]{background:var(--brand-2);color:#06121d;border-color:var(--brand-2)}
+:root[data-theme="dark"] .daytab[aria-selected="true"] small{color:#0b2a42}
+.daytab .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-left:5px;vertical-align:middle}
+.day-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
+.day-head{padding:12px 16px;background:var(--brand);color:#fff;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+:root[data-theme="dark"] .day-head{background:#0b2a42}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .day-head{background:#0b2a42}}
+.day-head small{font-weight:600;opacity:.85}
+.day-card.is-today .day-head{background:var(--accent);color:#1b1300}
+.slot{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:14px 16px;border-bottom:1px solid var(--line);align-items:start}
+.slot:last-child{border-bottom:0}
+.slot.current{background:color-mix(in srgb,#16a34a 12%,var(--surface));box-shadow:inset 4px 0 0 #16a34a}
+.slot-time{font-variant-numeric:tabular-nums}
+.slot-time .pn{font-weight:800;font-size:.85rem}
+.slot-time .pt{font-size:.78rem;color:var(--muted);font-weight:600}
+.slot-time .now{display:inline-block;margin-top:4px;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:#16a34a;color:#fff;padding:2px 7px;border-radius:5px}
+.slot.nomatch .opt{opacity:.22}
+.daily-grid{display:grid;gap:16px}
+
+footer{margin:28px 0 36px;text-align:center;color:var(--muted);font-size:.82rem;display:grid;gap:6px}
+.note{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;font-size:.85rem;color:var(--muted);margin-bottom:8px}
+
+/* ---------- Responsive ---------- */
+@media (max-width:860px){
+  .wrap{padding:0 14px}
+  .desktop-week{display:none}
+  .mobile-week{display:block}
+  .live-right{text-align:left}
+  .filters{width:100%}
+  .field{flex:1}
+  select{max-width:100%;width:100%}
+  .tabs{width:100%}
+  .tab{flex:1}
+}
+@media (max-width:480px){
+  .slot{grid-template-columns:78px 1fr;gap:10px;padding:12px}
+  .crest{width:48px;height:48px;font-size:24px}
+  .hero-actions .icon-btn span.lbl{display:none}
+  .icon-btn{padding:0 12px}
+}
+
+/* ---------- Print ---------- */
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  :root{--bg:#fff}
+  body{background:#fff;color:#000}
+  header.hero{padding:10px 0 12px;background:#0f3d5e !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header.hero::before,header.hero::after,.hero-actions,.live,.toolbar,.teacher-bar,.daytabs,.mobile-week,.note,.no-print{display:none !important}
+  .desktop-week{display:block !important}
+  .table-card{box-shadow:none;break-inside:avoid;margin-bottom:10px}
+  .scroll{overflow:visible}
+  table.tt{min-width:0}
+  table.tt th,table.tt td{padding:5px 6px}
+  .opt{padding:4px 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .opt .subj{font-size:.78rem}.tchr{font-size:.66rem}
+  table.tt thead th,.day-head,.badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .legend{margin:8px 0}
+  tr.today .daycol{background:var(--surface-2);color:inherit}
+  td.cell.current{background:none;box-shadow:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+.toolbar-left{display:flex;gap:10px;flex-wrap:wrap}
+.live-rows{display:grid;gap:14px;flex:1;min-width:0}
+.live-row{display:flex;gap:12px;align-items:center;min-width:0}
+.cpill{font-weight:800;font-size:.78rem;background:var(--brand);color:#fff;border-radius:8px;padding:4px 9px;flex:none}
+:root[data-theme="dark"] .cpill{background:var(--brand-2);color:#06121d}
+.live-row+.live-row{padding-top:14px;border-top:1px solid var(--line)}
+.tchr.tba{cursor:default;font-style:italic;opacity:.8}.tchr.tba:hover{color:var(--muted);text-decoration:none}
+.opt.s-practical{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--c) 14%,var(--surface)) 0 10px,color-mix(in srgb,var(--c) 8%,var(--surface)) 10px 20px)}
+.teacher-bar em{font-style:normal;font-weight:700}
+@media (max-width:860px){.toolbar-left{width:100%}.toolbar-left .tabs{flex:1}}
+@media print{.toolbar-left{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="brand">
+      <div class="crest" aria-hidden="true">🎓</div>
+      <div>
+        <div class="eyebrow">Official Class Time Table</div>
+        <h1>Government Degree Science College, Liaquatabad</h1>
+        <p class="subtitle" id="classSub">Pre-Engineering, Pre-Medical &amp; Science General</p>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">🌓 <span class="lbl">Theme</span></button>
+      <button class="icon-btn" id="printBtn" type="button" aria-label="Print time table">🖨️ <span class="lbl">Print</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="live" aria-live="polite" id="live">
+    <div class="live-rows" id="liveRows"></div>
+    <div class="live-right">
+      <div class="clock" id="clock">--:--</div>
+      <div class="today-date" id="todayDate"></div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <div class="tabs" role="tablist" aria-label="Class">
+        <button class="tab" role="tab" aria-selected="true" data-class="XI" type="button">Class XI</button>
+        <button class="tab" role="tab" aria-selected="false" data-class="XII" type="button">Class XII</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="View">
+        <button class="tab" role="tab" id="tabWeek" aria-selected="true" data-view="week" type="button">Weekly</button>
+        <button class="tab" role="tab" id="tabDay" aria-selected="false" data-view="day" type="button">Daily</button>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="field">
+        <label for="teacherSel">Teacher</label>
+        <select id="teacherSel"><option value="">All teachers</option></select>
+      </div>
+      <div class="field">
+        <label for="subjectSel">Subject</label>
+        <select id="subjectSel"><option value="">All subjects</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="teacher-bar" id="teacherBar">
+    <div id="teacherInfo"></div>
+    <button class="clear" id="clearBtn" type="button">Clear filter</button>
+  </div>
+
+  <div class="legend" id="legend" aria-label="Subject colour legend"></div>
+
+  <div id="view"></div>
+
+  <div class="note">Where a period lists two subjects, they are conducted in parallel for different groups. Switch between Class XI and XII above, and tap or click a teacher’s name to highlight their classes throughout the week.</div>
+
+  <footer>
+    <div><strong>Mon – Thu:</strong> 9:00 AM – 1:30 PM &nbsp;|&nbsp; <strong>Friday:</strong> 9:00 AM – 11:30 AM</div>
+    <div>Government Degree Science College, Liaquatabad &middot; Karachi</div>
+  </footer>
+</main>
+
+<script>
+/* =====================================================
+   TIMETABLE DATA — edit this block to update the page
+   Each slot: [subject, teacher, isPractical]
+   teacher = null shows "Teacher not listed".
+   Times are in 24-hour "HH:MM" format.
+   ===================================================== */
+const SCHEDULES = {
+  regular: [
+    { id:"P1",  name:"Period 1",    start:"09:00", end:"09:40" },
+    { id:"P2",  name:"Period 2",    start:"09:40", end:"10:20" },
+    { id:"P3",  name:"Period 3",    start:"10:20", end:"11:00" },
+    { id:"P4",  name:"Period 4",    start:"11:00", end:"11:40" },
+    { id:"P5",  name:"Period 5",    start:"11:40", end:"12:20" },
+    { id:"P67", name:"Period 6 & 7",start:"12:20", end:"13:30" }
+  ],
+  friday: [
+    { id:"P1",  name:"Period 1", start:"09:00", end:"09:30" },
+    { id:"P2",  name:"Period 2", start:"09:30", end:"10:00" },
+    { id:"P3",  name:"Period 3", start:"10:00", end:"10:30" },
+    { id:"P4",  name:"Period 4", start:"10:30", end:"11:00" },
+    { id:"P5",  name:"Period 5", start:"11:00", end:"11:30" }
+  ]
+};
+
+const T = {
+  nazakat:"Prof. Nazakat Ali", zulfiqar:"Prof. Zulfiqar Masood", shujaat:"Prof. Shujaat Ali",
+  aijaz:"Prof. Aijaz Bashir", nawaid:"Prof. Nawaid Ahmed Naqvi", basit:"Prof. Abdul Basit",
+  ashraf:"Prof. Ashraf Ali", naveed:"Prof. Naveed Saeed", rehman:"Prof. Abdul Rehman Tahir",
+  basitkhan:"Prof. Basit Ali Khan", abid:"Prof. Abid Asad", rauf:"Prof. Abdul Rauf", mazhar:"Prof. Mazhar"
+};
+
+const CLASSES = {
+  XI: { label:"XI", days:[
+    { name:"Monday", short:"Mon", schedule:"regular", slots:{
+      P1:[["Physics",T.nazakat]],
+      P2:[["Computer",T.zulfiqar],["Chemistry",T.shujaat]],
+      P3:[["Islamiat",T.aijaz]],
+      P4:[["English",T.nawaid]],
+      P5:[["Maths",T.basit],["Zoology",T.ashraf]],
+      P67:[["Chemistry",T.naveed,true]]
+    }},
+    { name:"Tuesday", short:"Tue", schedule:"regular", slots:{
+      P1:[["Physics",T.nazakat]],
+      P2:[["Computer",T.zulfiqar],["Chemistry",T.shujaat]],
+      P3:[["Islamiat",T.aijaz]],
+      P4:[["English",T.nawaid]],
+      P5:[["Maths",T.basit],["Zoology",T.ashraf]],
+      P67:[["Physics",T.nazakat,true]]
+    }},
+    { name:"Wednesday", short:"Wed", schedule:"regular", slots:{
+      P1:[["Physics",T.nazakat]],
+      P2:[["Computer",T.zulfiqar],["Chemistry",T.shujaat]],
+      P3:[["Maths",T.basit],["Botany",T.ashraf]],
+      P4:[["English",T.nawaid]],
+      P5:[["Urdu",T.rehman]],
+      P67:[["Botany",T.ashraf,true]]
+    }},
+    { name:"Thursday", short:"Thu", schedule:"regular", slots:{
+      P1:[["Urdu",T.rehman]],
+      P2:[["English",T.nawaid]],
+      P3:[["Maths",T.basit],["Botany",T.ashraf]],
+      P4:[["Computer",T.basitkhan],["Chemistry",T.naveed]],
+      P5:[["Physics",T.abid]],
+      P67:[["Computer",T.basitkhan,true],["Zoology",T.ashraf,true]]
+    }},
+    { name:"Friday", short:"Fri", schedule:"friday", slots:{
+      P1:[["Urdu",T.rehman]],
+      P2:[["English",T.nawaid]],
+      P3:[["Maths",T.basit],["Botany",T.ashraf]],
+      P4:[["Computer",T.basitkhan],["Chemistry",T.naveed]],
+      P5:[["Physics",T.abid]]
+    }}
+  ]},
+
+  XII: { label:"XII", days:[
+    { name:"Monday", short:"Mon", schedule:"regular", slots:{
+      P1:[["Computer",T.basitkhan],["Chemistry",T.naveed]],
+      P2:[["Maths",T.basit],["Zoology",T.rauf]],
+      P3:[["Physics",T.nazakat]],
+      P4:[["Pakistan Studies",T.mazhar]],
+      P5:[["English",T.nawaid]],
+      P67:[["Physics",null,true],["Botany",null,true]]
+    }},
+    { name:"Tuesday", short:"Tue", schedule:"regular", slots:{
+      P1:[["Computer",T.basitkhan],["Chemistry",T.naveed]],
+      P2:[["Maths",T.basit],["Zoology",T.rauf]],
+      P3:[["Physics",T.nazakat]],
+      P4:[["English",T.nawaid]],
+      P5:[["Pakistan Studies",T.mazhar]],
+      P67:[["Zoology",T.ashraf,true]]
+    }},
+    { name:"Wednesday", short:"Wed", schedule:"regular", slots:{
+      P1:[["Computer",T.basitkhan],["Chemistry",T.naveed]],
+      P2:[["Maths",T.basit],["Zoology",T.rauf]],
+      P3:[["Physics",T.nazakat]],
+      P4:[["English",T.nawaid]],
+      P5:[["Urdu",T.rehman]],
+      P67:[["Practical",T.ashraf]]
+    }},
+    { name:"Thursday", short:"Thu", schedule:"regular", slots:{
+      P1:[["Pakistan Studies",T.mazhar]],
+      P2:[["Maths",T.basit],["Botany",T.rauf]],
+      P3:[["Physics",T.abid]],
+      P4:[["Computer",T.basitkhan],["Chemistry",T.shujaat]],
+      P5:[["Urdu",T.rehman]],
+      P67:[["Computer",T.basitkhan,true],["Chemistry",T.naveed,true]]
+    }},
+    { name:"Friday", short:"Fri", schedule:"friday", slots:{
+      P1:[["Pakistan Studies",T.mazhar]],
+      P2:[["Maths",T.basit],["Botany",T.rauf]],
+      P3:[["Physics",T.abid]],
+      P4:[["Computer",T.basitkhan],["Chemistry",T.shujaat]],
+      P5:[["Urdu",T.rehman]]
+    }}
+  ]}
+};
+
+/* =====================================================
+   APP LOGIC
+   ===================================================== */
+const SUBJECTS = ["Physics","Chemistry","Maths","Computer","English","Urdu","Islamiat","Pakistan Studies","Zoology","Botany"];
+const $ = s => document.querySelector(s);
+const viewEl = $("#view");
+const state = { cls:"XI", view:"week", day:0, teacher:"", subject:"" };
+const days = (c=state.cls) => CLASSES[c].days;
+
+const toMin = t => { const [h,m] = t.split(":").map(Number); return h*60+m; };
+const fmt12 = t => {
+  let [h,m] = t.split(":").map(Number);
+  const ap = h>=12 ? "PM":"AM"; h = h%12 || 12;
+  return h+":"+String(m).padStart(2,"0")+" "+ap;
+};
+const range12 = p => fmt12(p.start)+" – "+fmt12(p.end);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cls = s => "s-"+s.toLowerCase().replace(/\s+/g,"-");
+
+function todayIdx(now=new Date()){ const d = now.getDay(); return (d>=1 && d<=5) ? d-1 : -1; }
+
+function currentPeriod(c, now=new Date()){
+  const di = todayIdx(now); if(di<0) return null;
+  const mins = now.getHours()*60+now.getMinutes();
+  for(const p of SCHEDULES[days(c)[di].schedule]){ if(mins>=toMin(p.start) && mins<toMin(p.end)) return {di,p,mins}; }
+  return null;
+}
+
+const allTeachers = [...new Set(Object.values(CLASSES).flatMap(c=>c.days.flatMap(d=>Object.values(d.slots).flat().map(o=>o[1]))))].filter(Boolean).sort();
+
+function matches(o){
+  if(state.teacher && o[1]!==state.teacher) return false;
+  if(state.subject && o[0]!==state.subject) return false;
+  return true;
+}
+const hasFilter = () => !!(state.teacher || state.subject);
+const slotMatches = opts => !hasFilter() || opts.some(matches);
+
+function optHTML(o){
+  const [subj,teacher,prac] = o;
+  const c = ["opt",cls(subj)];
+  if(prac) c.push("practical");
+  if(hasFilter()) c.push(matches(o)?"match":"dim");
+  const t = teacher
+    ? `<button class="tchr" type="button" data-teacher="${esc(teacher)}" title="Highlight this teacher’s classes">${esc(teacher)}</button>`
+    : `<span class="tchr tba">Teacher not listed</span>`;
+  return `<div class="${c.join(" ")}"><div class="subj">${esc(subj)}${prac?'<span class="badge">Practical</span>':''}</div>${t}</div>`;
+}
+
+/* ---------- Weekly table (desktop) ---------- */
+function tableHTML(title, note, schedKey, dayList){
+  const periods = SCHEDULES[schedKey], all = days();
+  const cur = currentPeriod(state.cls), ti = todayIdx();
+  let h = `<div class="table-card"><div class="table-title"><span>${title}</span><small>${note}</small></div><div class="scroll"><table class="tt">
+    <thead><tr><th class="daycol">Day</th>${periods.map(p=>`<th><span class="pn">${p.name}</span><span class="pt">${range12(p)}</span></th>`).join("")}</tr></thead><tbody>`;
+  for(const d of dayList){
+    const di = all.indexOf(d);
+    h += `<tr class="${di===ti?"today":""}"><td class="daycol">${d.name}${di===ti?"<small>Today</small>":""}</td>`;
+    for(const p of periods){
+      const opts = d.slots[p.id];
+      if(!opts){ h += `<td class="empty"></td>`; continue; }
+      const isCur = cur && cur.di===di && cur.p.id===p.id;
+      const nm = hasFilter() && !slotMatches(opts);
+      h += `<td class="cell${isCur?" current":""}${nm?" nomatch":""}">${opts.map(optHTML).join("")}</td>`;
+    }
+    h += `</tr>`;
+  }
+  return h + `</tbody></table></div></div>`;
+}
+function weekTablesHTML(){
+  const all = days();
+  return `<div class="desktop-week">
+    ${tableHTML(`Class ${state.cls} · Monday – Thursday`,"9:00 AM – 1:30 PM","regular",all.filter(d=>d.schedule==="regular"))}
+    ${tableHTML(`Class ${state.cls} · Friday`,"Short timings · 9:00 AM – 11:30 AM","friday",all.filter(d=>d.schedule==="friday"))}
+  </div>`;
+}
+
+/* ---------- Day cards (mobile weekly + daily) ---------- */
+function dayCardHTML(d){
+  const all = days(), di = all.indexOf(d), ti = todayIdx(), cur = currentPeriod(state.cls);
+  const periods = SCHEDULES[d.schedule];
+  const first = periods[0], last = periods[periods.length-1];
+  let h = `<article class="day-card${di===ti?" is-today":""}">
+    <div class="day-head"><span>${d.name}${di===ti?" · Today":""}</span><small>${fmt12(first.start)} – ${fmt12(last.end)}</small></div>`;
+  for(const p of periods){
+    const opts = d.slots[p.id]; if(!opts) continue;
+    const isCur = cur && cur.di===di && cur.p.id===p.id;
+    const nm = hasFilter() && !slotMatches(opts);
+    h += `<div class="slot${isCur?" current":""}${nm?" nomatch":""}">
+      <div class="slot-time"><div class="pn">${p.name}</div><div class="pt">${fmt12(p.start)}<br>${fmt12(p.end)}</div>${isCur?'<span class="now">Now</span>':''}</div>
+      <div>${opts.map(optHTML).join("")}</div></div>`;
+  }
+  return h + `</article>`;
+}
+
+function render(){
+  const ti = todayIdx(), all = days();
+  document.body.classList.toggle("has-filter", hasFilter());
+  $("#classSub").textContent = `Class ${state.cls} · Pre-Engineering, Pre-Medical & Science General`;
+  document.title = `${state.cls} Time Table | Government Degree Science College, Liaquatabad`;
+  document.querySelectorAll("[data-class]").forEach(b=>b.setAttribute("aria-selected", b.dataset.class===state.cls));
+  if(state.view==="week"){
+    viewEl.innerHTML = weekTablesHTML() + `<div class="mobile-week">${all.map(dayCardHTML).join("")}</div>`;
+  } else {
+    const tabs = all.map((d,i)=>`<button class="daytab" role="tab" type="button" data-day="${i}" aria-selected="${i===state.day}">${d.short}${i===ti?'<span class="dot" title="Today"></span>':''}<small>${d.schedule==="friday"?"Short day":d.name}</small></button>`).join("");
+    viewEl.innerHTML = `<div class="daytabs" role="tablist" aria-label="Choose day">${tabs}</div><div class="daily-grid">${dayCardHTML(all[state.day])}</div>`;
+  }
+  renderTeacherBar();
+}
+
+function renderTeacherBar(){
+  const bar = $("#teacherBar");
+  if(!hasFilter()){ bar.classList.remove("on"); return; }
+  const stat = c => { let n=0; const ds=new Set();
+    days(c).forEach(d=>Object.values(d.slots).forEach(opts=>opts.forEach(o=>{ if(matches(o)){ n++; ds.add(d.short); } })));
+    return {n,ds:[...ds]}; };
+  const parts=[];
+  if(state.teacher) parts.push(`<b>${esc(state.teacher)}</b>`);
+  if(state.subject) parts.push(`<b>${esc(state.subject)}</b>`);
+  const s = Object.keys(CLASSES).map(c=>{ const r=stat(c); return `<b>${c}</b>: ${r.n} class${r.n===1?"":"es"}${r.n?` (${r.ds.join(", ")})`:""}`; });
+  const here = stat(state.cls).n===0 ? ` <em>Nothing in ${state.cls} — try the other class.</em>` : "";
+  $("#teacherInfo").innerHTML = `Showing ${parts.join(" · ")} — per week → ${s.join(" &nbsp;|&nbsp; ")}.${here}`;
+  bar.classList.add("on");
+}
+
+/* ---------- Live status (both classes) ---------- */
+function liveRow(c, now){
+  const di = todayIdx(now), mins = now.getHours()*60+now.getMinutes();
+  const mk = (idle,label,main,sub) => `<div class="live-row"><span class="cpill">${c}</span><span class="pulse${idle?" idle":""}"></span><div><div class="live-label">${label}</div><div class="live-main">${main}</div><div class="live-sub">${sub}</div></div></div>`;
+  if(di<0) return mk(true,"Weekend","No classes today","Classes resume on Monday at 9:00 AM.");
+  const d = days(c)[di], periods = SCHEDULES[d.schedule];
+  const describe = (p) => d.slots[p.id].map(o=>`${o[0]}${o[2]?" Practical":""}`).join(" / ");
+  const who = p => [...new Set(d.slots[p.id].map(o=>o[1]).filter(Boolean))].map(esc).join(" / ") || "Teacher not listed";
+  const cur = periods.find(p=>mins>=toMin(p.start)&&mins<toMin(p.end));
+  const next = periods.find(p=>toMin(p.start)>mins);
+  if(cur){
+    const left = toMin(cur.end)-mins;
+    return mk(false,"Now · "+cur.name, esc(describe(cur)), `${who(cur)} · ends ${fmt12(cur.end)} (${left} min left)`+(next?` · Next: ${esc(describe(next))}`:""));
+  }
+  if(next) return mk(true, mins<toMin(periods[0].start)?"Before classes":"Break", `Next: ${esc(describe(next))}`, `${next.name} at ${fmt12(next.start)} · ${who(next)}`);
+  return mk(true,"Done for today","Classes are over for today", di===4 ? "See you on Monday!" : `Tomorrow: ${DAYS_NAMES[di+1]}, starts 9:00 AM.`);
+}
+const DAYS_NAMES = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+
+function updateLive(){
+  const now = new Date();
+  $("#clock").textContent = now.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+  $("#todayDate").textContent = now.toLocaleDateString([], {weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  $("#liveRows").innerHTML = Object.keys(CLASSES).map(c=>liveRow(c,now)).join("");
+}
+
+/* ---------- Setup ---------- */
+function setView(v){
+  state.view = v;
+  document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-selected", b.dataset.view===v));
+  render();
+}
+function setClass(c, push=true){
+  if(!CLASSES[c]) return;
+  state.cls = c;
+  if(push){ try{ history.replaceState(null,"","#"+c); }catch(_){} }
+  render();
+}
+
+function init(){
+  $("#legend").innerHTML = SUBJECTS.map(s=>`<span class="chip ${cls(s)}"><i></i>${s}</span>`).join("")
+    + `<span class="chip"><i style="background:repeating-linear-gradient(135deg,var(--muted) 0 3px,transparent 3px 6px)"></i>Practical</span>`;
+  $("#teacherSel").insertAdjacentHTML("beforeend", allTeachers.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join(""));
+  $("#subjectSel").insertAdjacentHTML("beforeend", SUBJECTS.map(s=>`<option>${s}</option>`).join(""));
+
+  const h = (location.hash||"").replace("#","").toUpperCase();
+  if(CLASSES[h]) state.cls = h;
+  const ti = todayIdx(); state.day = ti>=0 ? ti : 0;
+  if(window.matchMedia("(max-width:860px)").matches){ setView("day"); } else { render(); }
+
+  $("#teacherSel").addEventListener("change",e=>{ state.teacher=e.target.value; render(); });
+  $("#subjectSel").addEventListener("change",e=>{ state.subject=e.target.value; render(); });
+  $("#clearBtn").addEventListener("click",()=>{ state.teacher=""; state.subject=""; $("#teacherSel").value=""; $("#subjectSel").value=""; render(); });
+  document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+  document.querySelectorAll("[data-class]").forEach(b=>b.addEventListener("click",()=>setClass(b.dataset.class)));
+  window.addEventListener("hashchange",()=>{ const x=(location.hash||"").replace("#","").toUpperCase(); if(CLASSES[x]) setClass(x,false); });
+
+  viewEl.addEventListener("click",e=>{
+    const t = e.target.closest(".tchr[data-teacher]");
+    if(t){
+      const name = t.dataset.teacher;
+      state.teacher = state.teacher===name ? "" : name;
+      $("#teacherSel").value = state.teacher; render(); return;
+    }
+    const dt = e.target.closest(".daytab");
+    if(dt){ state.day = +dt.dataset.day; render(); }
+  });
+
+  $("#printBtn").addEventListener("click",()=>window.print());
+  $("#themeBtn").addEventListener("click",()=>{
+    const cur = document.documentElement.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark":"light");
+    const nxt = cur==="dark" ? "light":"dark";
+    document.documentElement.setAttribute("data-theme",nxt);
+    try{ localStorage.setItem("tt-theme",nxt); }catch(_){}
+  });
+  try{ const saved = localStorage.getItem("tt-theme"); if(saved) document.documentElement.setAttribute("data-theme",saved); }catch(_){}
+
+  updateLive();
+  setInterval(()=>{ updateLive(); render(); }, 30000);
+}
+init();
+</script>
+</body>
+</html>
