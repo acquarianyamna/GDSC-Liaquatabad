@@ -262,6 +262,8 @@ footer{margin:28px 0 36px;text-align:center;color:var(--muted);font-size:.82rem;
   .live-main{font-size:.98rem;overflow-wrap:anywhere}
   .live-sub{overflow-wrap:anywhere}
 }
+.st{display:inline-block;margin-top:6px;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:99px;border:1px solid currentColor;background:var(--surface)}
+.st-on_time{color:#059669}.st-late{color:#d97706}.st-absent{color:#dc2626}.st-students_absent{color:#2563eb}
 </style>
 </head>
 <body>
@@ -321,6 +323,8 @@ footer{margin:28px 0 36px;text-align:center;color:var(--muted);font-size:.82rem;
     <button class="clear" id="clearBtn" type="button">Clear filter</button>
   </div>
 
+  <div class="note" id="shiftNote" hidden>⚠ Today’s time table has been adjusted by the class monitoring officer. The grid below shows the updated order.</div>
+
   <div class="legend" id="legend" aria-label="Subject colour legend"></div>
 
   <div id="view"></div>
@@ -329,10 +333,11 @@ footer{margin:28px 0 36px;text-align:center;color:var(--muted);font-size:.82rem;
 
   <footer>
     <div><strong>Mon – Thu:</strong> 9:00 AM – 1:30 PM &nbsp;|&nbsp; <strong>Friday:</strong> 9:00 AM – 11:30 AM</div>
-    <div>Government Degree Science College, Liaquatabad &middot; Karachi</div>
+    <div>Government Degree Science College, Liaquatabad &middot; Karachi &nbsp;|&nbsp; <a href="admin.html" style="color:inherit">Class monitoring login</a></div>
   </footer>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* =====================================================
    TIMETABLE DATA — edit this block to update the page
@@ -479,7 +484,7 @@ function currentPeriod(c, now=new Date()){
   return null;
 }
 
-const allTeachers = [...new Set(Object.values(CLASSES).flatMap(c=>c.days.flatMap(d=>Object.values(d.slots).flat().map(o=>o[1]))))].filter(Boolean).sort();
+let allTeachers = [...new Set(Object.values(CLASSES).flatMap(c=>c.days.flatMap(d=>Object.values(d.slots).flat().map(o=>o[1]))))].filter(Boolean).sort();
 
 function matches(o){
   if(state.teacher && o[1]!==state.teacher) return false;
@@ -489,15 +494,17 @@ function matches(o){
 const hasFilter = () => !!(state.teacher || state.subject);
 const slotMatches = opts => !hasFilter() || opts.some(matches);
 
-function optHTML(o){
+function optHTML(o,di){
   const [subj,teacher,prac] = o;
+  const r = (di!==undefined && di===todayIdx()) ? STATUS[state.cls+"|"+teacher+"|"+subj] : null;
+  const badge = r ? `<span class="st st-${r.status}">${{on_time:"✔ On time",late:"⏱ Late "+r.late_minutes+" min",absent:"✖ Absent",students_absent:"👥 Students absent"}[r.status]}</span>` : "";
   const c = ["opt",cls(subj)];
   if(prac) c.push("practical");
   if(hasFilter()) c.push(matches(o)?"match":"dim");
   const t = teacher
     ? `<button class="tchr" type="button" data-teacher="${esc(teacher)}" title="Highlight this teacher’s classes">${esc(teacher)}</button>`
     : `<span class="tchr tba">Teacher not listed</span>`;
-  return `<div class="${c.join(" ")}"><div class="subj">${esc(subj)}${prac?'<span class="badge">Practical</span>':''}</div>${t}</div>`;
+  return `<div class="${c.join(" ")}"><div class="subj">${esc(subj)}${prac?'<span class="badge">Practical</span>':''}</div>${t}${badge}</div>`;
 }
 
 /* ---------- Weekly table (desktop) ---------- */
@@ -514,7 +521,7 @@ function tableHTML(title, note, schedKey, dayList){
       if(!opts){ h += `<td class="empty"></td>`; continue; }
       const isCur = cur && cur.di===di && cur.p.id===p.id;
       const nm = hasFilter() && !slotMatches(opts);
-      h += `<td class="cell${isCur?" current":""}${nm?" nomatch":""}">${opts.map(optHTML).join("")}</td>`;
+      h += `<td class="cell${isCur?" current":""}${nm?" nomatch":""}">${opts.map(o=>optHTML(o,di)).join("")}</td>`;
     }
     h += `</tr>`;
   }
@@ -541,7 +548,7 @@ function dayCardHTML(d){
     const nm = hasFilter() && !slotMatches(opts);
     h += `<div class="slot${isCur?" current":""}${nm?" nomatch":""}">
       <div class="slot-time"><div class="pn">${p.name}</div><div class="pt">${fmt12(p.start)}<br>${fmt12(p.end)}</div>${isCur?'<span class="now">Now</span>':''}</div>
-      <div>${opts.map(optHTML).join("")}</div></div>`;
+      <div>${opts.map(o=>optHTML(o,di)).join("")}</div></div>`;
   }
   return h + `</article>`;
 }
@@ -602,6 +609,33 @@ function updateLive(){
   $("#liveRows").innerHTML = Object.keys(CLASSES).map(c=>liveRow(c,now)).join("");
 }
 
+/* ---------- Live data from Supabase (shifts + attendance + edited time table) ---------- */
+const SB_URL="https://oqprxtvzagvwigwjafru.supabase.co", SB_KEY="sb_publishable_uovN-UH9djKvi25A6cNFxA_uE7wu2zs";
+let sb=null; try{ sb=window.supabase.createClient(SB_URL,SB_KEY); }catch(_){}
+const STATUS={};
+async function loadRemote(){
+  if(!sb) return;
+  try{
+    const iso=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+    const [t,o,a]=await Promise.all([
+      sb.from("timetable").select("*"),
+      sb.from("day_overrides").select("*").eq("day",iso),
+      sb.from("attendance_public").select("*").eq("day",iso)]);
+    (t.data||[]).forEach(r=>{ if(CLASSES[r.class]&&r.data&&r.data.days) CLASSES[r.class].days=r.data.days; });
+    const ti=todayIdx(); let shifted=false;
+    (o.data||[]).forEach(r=>{ if(ti>=0&&CLASSES[r.class]){ CLASSES[r.class].days[ti]=Object.assign({},CLASSES[r.class].days[ti],{slots:r.slots}); shifted=true; }});
+    Object.keys(STATUS).forEach(k=>delete STATUS[k]);
+    (a.data||[]).forEach(r=>{ STATUS[r.class+"|"+r.teacher+"|"+r.subject]=r; });
+    const names=[...new Set(Object.values(CLASSES).flatMap(c=>c.days.flatMap(d=>Object.values(d.slots).flat().map(x=>x[1]))))].filter(Boolean).sort();
+    if(names.join()!==allTeachers.join()){
+      allTeachers=names; const sel=$("#teacherSel"), v=sel.value;
+      sel.innerHTML='<option value="">All teachers</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join(""); sel.value=v;
+    }
+    $("#shiftNote").hidden=!shifted;
+    updateLive(); render();
+  }catch(e){ console.warn("Live data unavailable",e); }
+}
+
 /* ---------- Setup ---------- */
 function setView(v){
   state.view = v;
@@ -655,7 +689,9 @@ function init(){
   try{ const saved = localStorage.getItem("tt-theme"); if(saved) document.documentElement.setAttribute("data-theme",saved); }catch(_){}
 
   updateLive();
+  loadRemote();
   setInterval(()=>{ updateLive(); render(); }, 30000);
+  setInterval(loadRemote, 60000);
 }
 init();
 </script>
