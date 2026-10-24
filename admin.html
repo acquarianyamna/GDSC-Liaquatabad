@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Class Monitoring | Government Degree Science College, Liaquatabad</title>
+<meta name="robots" content="noindex">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{--bg:#f3f6fa;--sf:#fff;--sf2:#f7f9fc;--tx:#14202e;--mu:#5d6b7c;--ln:#dde4ed;--br:#0f3d5e;--br2:#1c6ea4;--ok:#059669;--wn:#d97706;--bd:#dc2626;--in:#2563eb;color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--bg:#0c1520;--sf:#142231;--sf2:#112030;--tx:#e8eef5;--mu:#93a3b6;--ln:#243548;--br:#0b2a42;--br2:#5aa9e0;--ok:#34d399;--wn:#fbbf24;--bd:#f87171;--in:#60a5fa;color-scheme:dark}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.45;padding-bottom:env(safe-area-inset-bottom,0)}
+button,input,select,textarea{font:inherit;color:inherit}
+.hdr{background:linear-gradient(135deg,#0b2f4a,#1c6ea4);color:#fff;padding:calc(14px + env(safe-area-inset-top,0)) 16px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hdr h1{font-size:1.05rem}.hdr small{opacity:.85;display:block;font-size:.78rem}
+.hdr a,.hdr button{color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:7px 12px;font-size:.85rem;cursor:pointer;text-decoration:none;margin-left:6px}
+.wrap{max-width:1000px;margin:0 auto;padding:14px}
+.tabs{display:flex;gap:4px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:4px;margin-bottom:14px}
+.tabs button{flex:1;border:0;background:none;padding:9px 6px;border-radius:9px;font-weight:700;cursor:pointer;color:var(--mu)}
+.tabs button.on{background:var(--br);color:#fff}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.bar label{font-size:.85rem;font-weight:600;color:var(--mu);display:flex;gap:6px;align-items:center}
+input,select,textarea{background:var(--sf);border:1px solid var(--ln);border-radius:9px;padding:8px 10px;max-width:100%}
+.seg{display:inline-flex;border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:var(--sf);padding:8px 16px;font-weight:700;cursor:pointer;color:var(--mu)}
+.seg button.on{background:var(--br2);color:#fff}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 14px;background:var(--sf2);border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.muted{color:var(--mu);font-size:.85rem}
+.opt{padding:12px 14px;display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;border-bottom:1px solid var(--ln)}
+.opt:last-child{border:0}
+.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}
+.btn{border:1px solid var(--ln);background:var(--sf);border-radius:9px;padding:9px 14px;font-weight:700;cursor:pointer}
+.btn.sm{padding:6px 10px;font-size:.78rem}
+.btn.pri{background:var(--br);color:#fff;border-color:var(--br)}
+.btn.ok{color:var(--ok);border-color:var(--ok)}.btn.warn{color:var(--wn);border-color:var(--wn)}.btn.bad{color:var(--bd);border-color:var(--bd)}.btn.info{color:var(--in);border-color:var(--in)}
+.st{display:inline-block;margin-top:4px;font-size:.78rem;font-weight:800;padding:2px 9px;border-radius:99px;border:1px solid currentColor}
+.st.ok{color:var(--ok)}.st.warn{color:var(--wn)}.st.bad{color:var(--bd)}.st.info{color:var(--in)}
+.tag{font-size:.65rem;text-transform:uppercase;font-weight:800;background:var(--br2);color:#fff;border-radius:5px;padding:1px 6px;font-style:normal}
+.alert{background:color-mix(in srgb,var(--wn) 18%,var(--sf));border:1px solid var(--wn);border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.empty{padding:30px;text-align:center;color:var(--mu)}
+.row{display:grid;grid-template-columns:1fr 1.2fr auto auto;gap:8px;padding:8px 14px;align-items:center}
+.row input[type=text]{width:100%}
+.sc{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--ln);text-align:left;white-space:nowrap}
+th{background:var(--sf2)}
+dialog{border:1px solid var(--ln);border-radius:16px;padding:18px;width:min(440px,94vw);background:var(--sf);color:var(--tx);margin:auto}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog h3{font-size:1rem;margin-bottom:12px}
+dialog .f{margin-bottom:10px;display:grid;gap:4px;font-size:.85rem;font-weight:600}
+dialog textarea,dialog input[type=number]{width:100%}
+#pv{max-width:100%;max-height:200px;border-radius:10px;margin-top:6px}
+.login{max-width:380px;margin:12vh auto;padding:22px}
+.login .card{padding:22px}.login input{width:100%;margin:4px 0 12px}
+.err{color:var(--bd);font-size:.85rem;min-height:1.2em;margin-bottom:8px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:10px;font-size:.88rem;display:none;z-index:9}
+@media(max-width:640px){.row{grid-template-columns:1fr 1fr}.opt{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div id="loginBox" class="login">
+  <form class="card" id="loginForm">
+    <h2 style="margin-bottom:4px">Class Monitoring</h2>
+    <p class="muted" style="margin-bottom:16px">Government Degree Science College, Liaquatabad</p>
+    <label>Username<input id="u" autocomplete="username" required></label>
+    <label>Password<input id="p" type="password" autocomplete="current-password" required></label>
+    <div class="err" id="lerr"></div>
+    <button class="btn pri" style="width:100%">Sign in</button>
+    <p class="muted" style="margin-top:12px;text-align:center"><a href="index.html">← Back to time table</a></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <div class="hdr">
+    <div><h1>Class Monitoring Dashboard</h1><small>Government Degree Science College, Liaquatabad</small></div>
+    <div><a href="index.html">Time table</a><button id="out" type="button">Sign out</button></div>
+  </div>
+  <div class="wrap">
+    <div class="tabs" id="tabs">
+      <button data-t="today">Monitor</button><button data-t="tt">Edit time table</button><button data-t="rep">Reports</button>
+    </div>
+    <div id="main"></div>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <form id="dForm" method="dialog">
+    <h3 id="dTitle"></h3>
+    <div class="f" id="lateRow">Late by (minutes)<input type="number" id="lm" min="1" max="120" value="5"></div>
+    <div class="f" id="photoRow">Photo of teacher in class (optional)
+      <input type="file" id="ph" accept="image/*" capture="user"><img id="pv" alt="" hidden>
+    </div>
+    <div class="f">Note (optional)<textarea id="nt" rows="2"></textarea></div>
+    <label class="f" id="shiftRow" style="display:flex;gap:8px;align-items:center;font-weight:600"><input type="checkbox" id="sh" checked> Shift later periods up and move this period to the end of the day</label>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn" id="dCancel">Cancel</button><button class="btn pri" id="dSave" value="x">Save</button></div>
+  </form>
+</dialog>
+<div id="toast"></div>
+
+<script>
+const SB_URL="https://oqprxtvzagvwigwjafru.supabase.co", SB_KEY="sb_publishable_uovN-UH9djKvi25A6cNFxA_uE7wu2zs";
+const SB=supabase.createClient(SB_URL,SB_KEY);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const mail=u=>u.trim().toLowerCase()+"@college-monitor.com";
+const SCH={
+ regular:[["P1","Period 1","09:00","09:40"],["P2","Period 2","09:40","10:20"],["P3","Period 3","10:20","11:00"],["P4","Period 4","11:00","11:40"],["P5","Period 5","11:40","12:20"],["P67","Period 6 & 7","12:20","13:30"]],
+ friday:[["P1","Period 1","09:00","09:30"],["P2","Period 2","09:30","10:00"],["P3","Period 3","10:00","10:30"],["P4","Period 4","10:30","11:00"],["P5","Period 5","11:00","11:30"]]};
+const SUBJ=["Physics","Chemistry","Maths","Computer","English","Urdu","Islamiat","Pakistan Studies","Zoology","Botany"];
+const DN=["Monday","Tuesday","Wednesday","Thursday","Friday"];
+const ST={on_time:["✔ On time","ok"],late:["⏱ Late","warn"],absent:["✖ Absent","bad"],students_absent:["👥 Students absent","info"]};
+const stTxt=r=>({on_time:"On time",late:`Late (${r.late_minutes} min)`,absent:"Absent",students_absent:"Class not held – students absent"}[r.status]);
+const f12=t=>{let[h,m]=t.split(":").map(Number);return(h%12||12)+":"+String(m).padStart(2,"0")+(h>=12?" PM":" AM")};
+const S={cls:"XI",date:iso(new Date()),tl:{},ov:{},att:[],tab:"today",ed:{cls:"XI",day:0}};
+const R={t:"",from:iso(new Date(new Date().getFullYear(),new Date().getMonth(),1)),to:iso(new Date()),rows:null};
+const dIdx=d=>new Date(d+"T00:00:00").getDay()-1;
+const toast=m=>{const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",2600)};
+const teachers=()=>[...new Set(["XI","XII"].flatMap(c=>(S.tl[c]?.days||[]).flatMap(d=>Object.values(d.slots).flat().map(o=>o[1]))))].filter(Boolean).sort();
+const clsSeg=(cur,a)=>`<div class="seg">${["XI","XII"].map(c=>`<button data-a="${a}" data-c="${c}" class="${c===cur?"on":""}">Class ${c}</button>`).join("")}</div>`;
+
+/* ---------- Auth ---------- */
+$("#loginForm").onsubmit=async e=>{
+  e.preventDefault();$("#lerr").textContent="";
+  const{error}=await SB.auth.signInWithPassword({email:mail($("#u").value),password:$("#p").value});
+  if(error)return $("#lerr").textContent="Wrong username or password.";
+  start();
+};
+$("#out").onclick=async()=>{await SB.auth.signOut();location.reload()};
+SB.auth.getSession().then(({data})=>data.session&&start());
+
+async function start(){
+  $("#loginBox").hidden=true;$("#app").hidden=false;
+  await loadTL();await loadDay();render();
+}
+
+/* ---------- Data ---------- */
+async function defaults(){
+  const h=await(await fetch("index.html",{cache:"no-store"})).text();
+  const a=h.indexOf("const T = {"),b=h.indexOf("/* =====",a);
+  return new Function(h.slice(a,b)+";return JSON.parse(JSON.stringify(CLASSES))")();
+}
+async function loadTL(){
+  const{data,error}=await SB.from("timetable").select("*");
+  if(error)return toast("Database not ready – run supabase_setup.sql first");
+  S.tl={};(data||[]).forEach(r=>S.tl[r.class]=r.data);
+  if(!S.tl.XI||!S.tl.XII){
+    const d=await defaults();
+    for(const c of["XI","XII"])if(!S.tl[c])S.tl[c]={days:d[c].days};
+    await saveTL();toast("Built-in time table imported");
+  }
+}
+const saveTL=()=>SB.from("timetable").upsert(["XI","XII"].map(c=>({class:c,data:S.tl[c],updated_at:new Date().toISOString()})));
+async function loadDay(){
+  const[o,a]=await Promise.all([SB.from("day_overrides").select("*").eq("day",S.date),SB.from("attendance").select("*").eq("day",S.date)]);
+  S.ov={};(o.data||[]).forEach(r=>S.ov[r.class]=r.slots);S.att=a.data||[];
+}
+
+/* ---------- Render ---------- */
+function render(){
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===S.tab));
+  $("#main").innerHTML=S.tab==="today"?vToday():S.tab==="tt"?vTT():vRep();
+}
+$("#tabs").onclick=e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render()}};
+
+function vToday(){
+  const i=dIdx(S.date);
+  let h=`<div class="bar"><label>Date <input type="date" id="dt" value="${S.date}"></label>${clsSeg(S.cls,"cls")}</div>`;
+  if(i<0||i>4)return h+`<div class="card empty">Weekend – no classes on this date.</div>`;
+  const day=S.tl[S.cls].days[i],sl=S.ov[S.cls]||day.slots,per=SCH[day.schedule],mv=per.filter(p=>p[0]!=="P67");
+  if(S.ov[S.cls])h+=`<div class="alert"><span>⚠ ${DN[i]}'s time table for Class ${S.cls} has been shifted. All viewers see the shifted version.</span><button class="btn sm" data-a="reset">Reset to original</button></div>`;
+  return h+per.map(p=>{
+    const opts=sl[p[0]]||[];
+    return `<section class="card"><div class="ph"><div><b>${p[1]}</b> <span class="muted">${f12(p[2])} – ${f12(p[3])}</span></div>
+      ${p[0]!=="P67"?`<select data-a="move" data-p="${p[0]}"><option value="">Move this period to…</option>${mv.filter(x=>x[0]!==p[0]).map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("")}</select>`:""}</div>
+      ${opts.map((o,k)=>optCard(o,p[0],k)).join("")||'<div class="empty">Free</div>'}</section>`;
+  }).join("");
+}
+function optCard(o,pid,k){
+  const r=S.att.find(a=>a.class===S.cls&&a.teacher===o[1]&&a.subject===o[0]);
+  return `<div class="opt"><div><b>${esc(o[0])}</b>${o[2]?' <i class="tag">Practical</i>':""}<div class="muted">${esc(o[1])}</div>
+    ${r?`<span class="st ${ST[r.status][1]}">${esc(stTxt(r))}</span>${r.photo?` <a href="#" data-a="photo" data-id="${r.id}">📷 photo</a>`:""}${r.note?`<div class="muted">${esc(r.note)}</div>`:""}`:""}</div>
+    <div class="acts">${Object.keys(ST).map(s=>`<button class="btn sm ${ST[s][1]}" data-a="mark" data-s="${s}" data-p="${pid}" data-k="${k}">${ST[s][0]}</button>`).join("")}${r?`<button class="btn sm" data-a="clear" data-id="${r.id}">Clear</button>`:""}</div></div>`;
+}
+
+/* ---------- Mark attendance ---------- */
+let cur=null;
+function openMark(s,pid,k){
+  const day=S.tl[S.cls].days[dIdx(S.date)],o=(S.ov[S.cls]||day.slots)[pid][k];
+  const ex=S.att.find(a=>a.class===S.cls&&a.teacher===o[1]&&a.subject===o[0]);
+  cur={s,pid,o,photo:ex?.photo||null};
+  $("#dTitle").textContent=`${ST[s][0]} — ${o[0]} (${o[1]})`;
+  $("#lateRow").hidden=s!=="late";$("#photoRow").hidden=!(s==="on_time"||s==="late");
+  const mvOk=s==="absent"&&pid!=="P67";$("#shiftRow").style.display=mvOk?"flex":"none";$("#sh").checked=mvOk;
+  $("#lm").value=ex?.late_minutes||5;$("#nt").value=ex?.note||"";$("#ph").value="";
+  $("#pv").hidden=!cur.photo;if(cur.photo)$("#pv").src=cur.photo;
+  $("#dlg").showModal();
+}
+$("#dCancel").onclick=()=>$("#dlg").close();
+$("#ph").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;const img=new Image();
+  img.onload=()=>{const r=Math.min(1,360/img.width),c=document.createElement("canvas");c.width=img.width*r;c.height=img.height*r;
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);cur.photo=c.toDataURL("image/jpeg",.6);$("#pv").src=cur.photo;$("#pv").hidden=false;URL.revokeObjectURL(img.src)};
+  img.src=URL.createObjectURL(f);
+};
+$("#dForm").onsubmit=async e=>{
+  e.preventDefault();const{s,pid,o}=cur;
+  await SB.from("attendance").delete().eq("day",S.date).eq("class",S.cls).eq("teacher",o[1]).eq("subject",o[0]);
+  const{error}=await SB.from("attendance").insert({day:S.date,class:S.cls,period:pid,teacher:o[1],subject:o[0],status:s,
+    late_minutes:s==="late"?(+$("#lm").value||0):0,photo:(s==="on_time"||s==="late")?cur.photo:null,note:$("#nt").value.trim()||null});
+  if(error)return toast(error.message);
+  if(s==="absent"&&$("#sh").checked&&pid!=="P67"){
+    const day=S.tl[S.cls].days[dIdx(S.date)],ids=SCH[day.schedule].map(p=>p[0]).filter(x=>x!=="P67");
+    if(ids[ids.length-1]!==pid)await move(pid,ids[ids.length-1],true);
+  }
+  $("#dlg").close();await loadDay();render();toast("Saved");
+};
+
+/* ---------- Shift periods ---------- */
+async function move(f,t,quiet){
+  const i=dIdx(S.date),day=S.tl[S.cls].days[i],sl=JSON.parse(JSON.stringify(S.ov[S.cls]||day.slots));
+  const ids=SCH[day.schedule].map(p=>p[0]).filter(x=>x!=="P67"),arr=ids.map(x=>sl[x]);
+  const[it]=arr.splice(ids.indexOf(f),1);arr.splice(ids.indexOf(t),0,it);ids.forEach((x,n)=>sl[x]=arr[n]);
+  const{error}=await SB.from("day_overrides").upsert({day:S.date,class:S.cls,slots:sl,updated_at:new Date().toISOString()});
+  if(error)return toast(error.message);
+  S.ov[S.cls]=sl;if(!quiet){render();toast("Period moved – visible to everyone")}
+}
+
+/* ---------- Time table editor ---------- */
+function vTT(){
+  const{cls,day}=S.ed,d=S.tl[cls].days[day],per=SCH[d.schedule];
+  return `<div class="bar">${clsSeg(cls,"edcls")}<select id="edday">${DN.map((n,i)=>`<option value="${i}" ${i===day?"selected":""}>${n}</option>`).join("")}</select></div>
+  <datalist id="sj">${SUBJ.map(s=>`<option>${s}</option>`).join("")}</datalist><datalist id="tc">${teachers().map(s=>`<option>${esc(s)}</option>`).join("")}</datalist>
+  ${per.map(p=>`<section class="card"><div class="ph"><b>${p[1]}</b><span class="muted">${f12(p[2])} – ${f12(p[3])}</span></div>
+    ${(d.slots[p[0]]||[]).map((o,i)=>`<div class="row"><input type="text" list="sj" placeholder="Subject" data-k="0" data-p="${p[0]}" data-i="${i}" value="${esc(o[0])}">
+      <input type="text" list="tc" placeholder="Teacher" data-k="1" data-p="${p[0]}" data-i="${i}" value="${esc(o[1])}">
+      <label class="muted"><input type="checkbox" data-k="2" data-p="${p[0]}" data-i="${i}" ${o[2]?"checked":""}> Practical</label>
+      <button class="btn sm bad" data-a="rm" data-p="${p[0]}" data-i="${i}">✕</button></div>`).join("")}
+    <div style="padding:8px 14px"><button class="btn sm" data-a="add" data-p="${p[0]}">+ Add subject / teacher</button></div></section>`).join("")}
+  <div class="bar"><button class="btn pri" data-a="savett">Save time table</button><button class="btn" data-a="clash">Check clashes</button><button class="btn" data-a="reimport">Re-import built-in time table</button></div>`;
+}
+function clashes(){
+  const m={},out=[];
+  for(const c of["XI","XII"])S.tl[c].days.forEach((d,di)=>Object.entries(d.slots).forEach(([p,os])=>os.forEach(o=>{
+    if(!o[1])return;const k=di+p+o[1];(m[k]=m[k]||[]).push(c+" "+o[0]);
+    if(m[k].length>1)out.push(`${DN[di]} ${p}: ${o[1]} is in ${m[k].join(" and ")}`);
+  })));
+  return out;
+}
+document.addEventListener("input",e=>{
+  const t=e.target;if(S.tab!=="tt"||t.dataset.k===undefined)return;
+  const sl=S.tl[S.ed.cls].days[S.ed.day].slots[t.dataset.p][+t.dataset.i];
+  sl[+t.dataset.k]=t.type==="checkbox"?t.checked:t.value;
+});
+
+/* ---------- Reports ---------- */
+function vRep(){
+  return `<div class="card" style="padding:14px"><div class="bar">
+    <label>Teacher <select id="rt"><option value="">All teachers</option>${teachers().map(t=>`<option ${t===R.t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+    <label>From <input type="date" id="rf" value="${R.from}"></label><label>To <input type="date" id="rto" value="${R.to}"></label></div>
+    <div class="bar"><button class="btn pri" data-a="prev">Preview</button><button class="btn" data-a="pdf">⬇ Download PDF</button></div></div>
+    <div id="rout">${R.rows?repTable(R.rows):""}</div>`;
+}
+async function fetchAtt(){
+  let q=SB.from("attendance").select("*").gte("day",R.from).lte("day",R.to).order("day").order("period");
+  if(R.t)q=q.eq("teacher",R.t);
+  const{data,error}=await q;if(error){toast(error.message);return[]}return data||[];
+}
+function summ(rows){
+  const m={};rows.forEach(r=>{const x=m[r.teacher]=m[r.teacher]||{on_time:0,late:0,mins:0,absent:0,students_absent:0};x[r.status]++;if(r.status==="late")x.mins+=r.late_minutes});
+  return m;
+}
+function repTable(rows){
+  const s=summ(rows),names=R.t?[R.t]:Object.keys(s).sort();
+  if(!rows.length)return `<div class="card empty">No records for this period.</div>`;
+  return `<div class="card sc"><table><tr><th>Teacher</th><th>On time</th><th>Late</th><th>Late mins</th><th>Absent</th><th>Students absent</th></tr>
+   ${names.map(n=>{const x=s[n]||{on_time:0,late:0,mins:0,absent:0,students_absent:0};return `<tr><td>${esc(n)}</td><td>${x.on_time}</td><td>${x.late}</td><td>${x.mins}</td><td>${x.absent}</td><td>${x.students_absent}</td></tr>`}).join("")}</table></div>
+   <div class="card sc"><table><tr><th>Date</th><th>Class</th><th>Period</th><th>Teacher</th><th>Subject</th><th>Status</th><th>Note</th></tr>
+   ${rows.map(r=>`<tr><td>${r.day}</td><td>${r.class}</td><td>${r.period}</td><td>${esc(r.teacher)}</td><td>${esc(r.subject)}</td><td>${esc(stTxt(r))}</td><td>${esc(r.note||"")}</td></tr>`).join("")}</table></div>`;
+}
+async function makePDF(){
+  const rows=await fetchAtt(),s=summ(rows),names=R.t?[R.t]:Object.keys(s).sort();
+  const doc=new window.jspdf.jsPDF();
+  doc.setFontSize(15);doc.text("Government Degree Science College, Liaquatabad",14,16);
+  doc.setFontSize(11);doc.text(`Class Monitoring Report: ${R.from} to ${R.to}${R.t?" — "+R.t:""}`,14,24);
+  doc.autoTable({startY:30,head:[["Teacher","On time","Late","Late mins","Absent","Students absent"]],
+    body:names.map(n=>{const x=s[n]||{on_time:0,late:0,mins:0,absent:0,students_absent:0};return[n,x.on_time,x.late,x.mins,x.absent,x.students_absent]}),headStyles:{fillColor:[15,61,94]}});
+  names.forEach(n=>{
+    const rs=rows.filter(r=>r.teacher===n);if(!rs.length)return;
+    let y=doc.lastAutoTable.finalY+10;if(y>250){doc.addPage();y=16}
+    doc.setFontSize(11);doc.text(n+" — details",14,y);
+    doc.autoTable({startY:y+3,head:[["Date","Class","Period","Subject","Status","Note"]],body:rs.map(r=>[r.day,r.class,r.period,r.subject,stTxt(r),r.note||""]),headStyles:{fillColor:[28,110,164]},styles:{fontSize:9}});
+  });
+  doc.setFontSize(8);doc.text("Generated "+new Date().toLocaleString(),14,doc.internal.pageSize.height-8);
+  doc.save(`monitoring_${(R.t||"all_teachers").replace(/[^\w]+/g,"_")}_${R.from}_${R.to}.pdf`);
+}
+
+/* ---------- Click / change handlers ---------- */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-a]");if(!b||b.tagName==="SELECT")return;const a=b.dataset.a;
+  if(a==="photo"){e.preventDefault();const r=S.att.find(x=>x.id==b.dataset.id);const w=open("");w.document.write(`<img src="${r.photo}" style="max-width:100%">`)}
+  else if(a==="cls"){S.cls=b.dataset.c;await loadDay();render()}
+  else if(a==="mark")openMark(b.dataset.s,b.dataset.p,+b.dataset.k);
+  else if(a==="clear"){await SB.from("attendance").delete().eq("id",b.dataset.id);await loadDay();render()}
+  else if(a==="reset"){await SB.from("day_overrides").delete().eq("day",S.date).eq("class",S.cls);await loadDay();render();toast("Original time table restored")}
+  else if(a==="edcls"){S.ed.cls=b.dataset.c;render()}
+  else if(a==="add"){S.tl[S.ed.cls].days[S.ed.day].slots[b.dataset.p].push(["","",false]);render()}
+  else if(a==="rm"){S.tl[S.ed.cls].days[S.ed.day].slots[b.dataset.p].splice(+b.dataset.i,1);render()}
+  else if(a==="clash"){const c=clashes();alert(c.length?"Clashes found:\n\n"+c.join("\n"):"No teacher clashes found.")}
+  else if(a==="savett"){
+    for(const c of["XI","XII"])S.tl[c].days.forEach(d=>Object.keys(d.slots).forEach(p=>d.slots[p]=d.slots[p].filter(o=>o[0].trim()&&o[1].trim())));
+    const{error}=await saveTL();render();const c=clashes();
+    if(error)toast(error.message);else{toast("Time table saved – live for everyone");if(c.length)alert("Saved, but clashes exist:\n\n"+c.join("\n"))}
+  }
+  else if(a==="reimport"){if(confirm("Replace the stored time table with the built-in one from index.html?")){const d=await defaults();["XI","XII"].forEach(c=>S.tl[c]={days:d[c].days});await saveTL();render();toast("Re-imported")}}
+  else if(a==="prev"){R.rows=await fetchAtt();$("#rout").innerHTML=repTable(R.rows)}
+  else if(a==="pdf")makePDF();
+});
+document.addEventListener("change",async e=>{
+  const t=e.target;
+  if(t.id==="dt"){S.date=t.value||S.date;S.ov={};await loadDay();render()}
+  else if(t.dataset.a==="move"&&t.value){await move(t.dataset.p,t.value)}
+  else if(t.id==="edday"){S.ed.day=+t.value;render()}
+  else if(t.id==="rt")R.t=t.value;else if(t.id==="rf")R.from=t.value;else if(t.id==="rto")R.to=t.value;
+});
+</script>
+</body>
+</html>
